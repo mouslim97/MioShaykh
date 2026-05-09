@@ -11,7 +11,11 @@ import {
   BookMarked,
   Video,
   Baby,
-  Scale
+  Scale,
+  CircleHelp,
+  RefreshCw,
+  Compass,
+  Puzzle
 } from "lucide-react";
 import { Layout, Section } from "../components/Layout";
 import { SKOOL_URL, gridUrl, profileUrl } from "../constants";
@@ -19,7 +23,7 @@ import { SKOOL_URL, gridUrl, profileUrl } from "../constants";
 const departments = [
   { 
     name: "MioShaykh Fatwa", 
-    tagline: "Le tue domande islamiche, con risposte qualificate",
+    tagline: "Le tue domande, con risposte qualificate e affidabili",
     status: "Attivo", 
     icon: Scale,
     path: "/fatwa"
@@ -75,7 +79,7 @@ export default function Home() {
               Il tuo sapiente musulmano di fiducia, per un <span className="text-brand-blue">percorso islamico</span> serio e guidato.
             </h1>
             <p className="text-xl text-zinc-600 mb-10 max-w-2xl leading-relaxed">
-              Un <a href="#vision" className="text-zinc-800 font-medium underline underline-offset-4 decoration-zinc-300 hover:text-brand-blue hover:decoration-brand-blue transition-colors">ecosistema culturale</a> affidabile per imparare, porre domande con serenità e rafforzare la tua fede, guidato dallo Shaykh Hisham Al-Sun.
+              Un <a href="#vision" className="text-zinc-800 font-medium underline underline-offset-4 decoration-zinc-300 hover:text-brand-blue hover:decoration-brand-blue transition-colors">ecosistema culturale</a> affidabile per imparare, porre domande con serenità e rafforzare la tua fede, guidato da Shaykh Hisham Al-Sun.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
@@ -111,35 +115,30 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
           {[
-            { 
-              title: "Confusione Online", 
-              desc: "Troppe opinioni contrastanti che generano dubbi invece di certezze." 
-            },
-            { 
-              title: "Mancanza di Guide", 
-              desc: "Risposte improvvisate o non qualificate a domande profonde sulla fede." 
-            },
-            { 
-              title: "Solitudine", 
-              desc: "Sentirsi soli nel proprio percorso di crescita senza una community di supporto." 
-            },
-            { 
-              title: "Fede Frammentata", 
-              desc: "Una conoscenza basata su post social invece che su percorsi strutturati." 
-            }
+            { text: "Non so a chi rivolgermi per avere una risposta islamica affidabile.", icon: CircleHelp },
+            { text: "Online trovo mille opinioni diverse e non so quale seguire.", icon: RefreshCw },
+            { text: "Ho domande sulla mia fede ma non trovo un percorso serio e strutturato.", icon: Compass },
+            { text: "La mia pratica è frammentata — manca una guida vera che mi accompagni.", icon: Puzzle }
           ].map((item, i) => (
             <motion.div 
               key={i}
-              whileHover={{ y: -5 }}
-              className="p-8 rounded-2xl bg-[#FAFAFA] border border-zinc-100"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="relative p-8 sm:p-12 rounded-[2.5rem] flex items-start gap-6 group transition-all duration-500 bg-zinc-50 border-l-4 border-brand-blue/30 hover:border-brand-blue"
             >
-              <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-brand-blue mb-6">
-                <ShieldCheck className="w-6 h-6" />
+              <div className="flex-shrink-0 mt-1">
+                <item.icon className="w-8 h-8 text-brand-blue" />
               </div>
-              <h3 className="text-xl mb-3">{item.title}</h3>
-              <p className="text-zinc-600 text-sm leading-relaxed">{item.desc}</p>
+              <div className="relative">
+                <span className="text-4xl text-zinc-200 absolute -top-4 -left-6 font-serif opacity-50 select-none group-hover:text-brand-blue/20 transition-colors">“</span>
+                <p className="text-xl sm:text-2xl text-zinc-800 font-medium leading-relaxed italic relative z-10">
+                  {item.text}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
