@@ -72,10 +72,10 @@ export default function Home() {
               Conoscenza Islamica Autentica
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl mb-6 text-zinc-900 leading-[1.1]">
-              La tua guida sicura per vivere <span className="text-brand-blue">l'Islam</span> in Italia.
+              Il tuo sapiente musulmano di fiducia, per un <span className="text-brand-blue">percorso islamico</span> serio e guidato.
             </h1>
             <p className="text-xl text-zinc-600 mb-10 max-w-2xl leading-relaxed">
-              Un ecosistema culturale affidabile per imparare, porre domande con serenità e rafforzare la tua fede, guidato dallo Shaykh Hisham Al-Sun.
+              Un <a href="#vision" className="text-zinc-800 font-medium underline underline-offset-4 decoration-zinc-300 hover:text-brand-blue hover:decoration-brand-blue transition-colors">ecosistema culturale</a> affidabile per imparare, porre domande con serenità e rafforzare la tua fede, guidato dallo Shaykh Hisham Al-Sun.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
@@ -149,10 +149,10 @@ export default function Home() {
       <Section id="shaykh" className="bg-zinc-900 text-white overflow-hidden relative">
         <div className="grid lg:grid-cols-2 gap-16 items-stretch">
           <div className="order-2 lg:order-1 flex flex-col justify-center">
-            <h2 className="text-4xl mb-8">Chi è lo Shaykh <span className="text-brand-blue">Hisham Al-Sun</span></h2>
+            <h2 className="text-4xl mb-8">Chi è Shaykh <span className="text-brand-blue">Hisham Al-Sun</span></h2>
             <div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
               <p>
-                Nato in Siria nel 1982, lo Shaykh Hisham è un sapiente sunnita specializzato in giurisprudenza islamica (<span className="text-white italic">fiqh</span>) e fondamenti della giurisprudenza (<span className="text-white italic">uṣūl al-fiqh</span>).
+                Nato in Siria nel 1982, Shaykh Hisham è un sapiente sunnita specializzato in giurisprudenza islamica (<span className="text-white italic">fiqh</span>) e fondamenti della giurisprudenza (<span className="text-white italic">uṣūl al-fiqh</span>).
               </p>
               <p>
                 Nel 2005 ha conseguito la laurea presso la prestigiosa università di <span className="font-semibold text-white">Al-Azhar</span>. Dal 2018 ricopre il ruolo di presidente del comitato della fatwa nella città di Kilis.
@@ -195,7 +195,7 @@ export default function Home() {
           <p className="text-zinc-600 max-w-2xl mx-auto">Tutto ciò di cui hai bisogno per la tua crescita spirituale in un unico posto.</p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
               icon: BookOpen,
@@ -228,63 +228,80 @@ export default function Home() {
               desc: "Non sei un numero. Sei parte di una famiglia che cresce insieme nella luce."
             }
           ].map((feature, i) => (
-            <div key={i} className="group p-2">
-              <feature.icon className="w-10 h-10 text-brand-blue mb-6 group-hover:scale-110 transition-transform" />
-              <h3 className="text-2xl mb-3 tracking-tight">{feature.title}</h3>
-              <p className="text-zinc-600 leading-relaxed">{feature.desc}</p>
-            </div>
+            <motion.div 
+              key={i} 
+              whileHover={{ y: -8 }}
+              className="p-10 rounded-[2.5rem] bg-[#FAFAFA] border border-zinc-100 flex flex-col h-full group hover:shadow-xl hover:shadow-zinc-200/50 transition-all duration-500"
+            >
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-brand-blue mb-8 group-hover:bg-brand-blue group-hover:text-white transition-all duration-300">
+                <feature.icon className="w-8 h-8" />
+              </div>
+              <h3 className="text-2xl mb-4 tracking-tight font-bold text-zinc-900">{feature.title}</h3>
+              <p className="text-zinc-600 leading-relaxed flex-grow text-lg">{feature.desc}</p>
+            </motion.div>
           ))}
         </div>
       </Section>
 
       {/* Vision / Departments Section */}
       <Section id="vision" className="bg-[#FAFAFA]">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+        {/* Header & Investment Card */}
+        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
           <div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl mb-8 leading-[1.1]">Stiamo costruendo il futuro dei musulmani in Italia.</h2>
-            <p className="text-xl text-zinc-600 mb-10 leading-relaxed">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl mb-8 leading-[1.1] tracking-tight">Stiamo costruendo il futuro dei musulmani in Italia.</h2>
+            <p className="text-xl text-zinc-600 leading-relaxed max-w-xl">
               MioShaykh non è solo una piattaforma di corsi. È un <span className="text-zinc-900 font-semibold italic uppercase text-lg tracking-wide">ecosistema culturale</span> in costruzione. Chi si iscrive oggi non è un semplice utente, ma un costruttore della comunità.
             </p>
-            
-            <div className="grid gap-4">
-              {departments.map((dept, i) => (
-                <Link 
-                  key={i} 
-                  to={dept.path}
-                  className="group flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 bg-white rounded-2xl border border-zinc-100 shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
-                >
-                  <div className="flex items-center gap-4 mb-4 sm:mb-0">
-                    <div className="w-12 h-12 bg-brand-blue/5 text-brand-blue rounded-xl flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
-                      <dept.icon className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-zinc-900 group-hover:text-brand-blue transition-colors">{dept.name}</h4>
-                      <p className="text-sm text-zinc-500 line-clamp-1">{dept.tagline}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
-                    <span className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full ${
-                      dept.status === "Attivo" ? "bg-emerald-100 text-emerald-700" : "bg-zinc-100 text-zinc-500"
-                    }`}>
-                      {dept.status}
-                    </span>
-                    <ArrowRight className="w-4 h-4 text-zinc-300 group-hover:text-brand-blue group-hover:translate-x-1 transition-all" />
-                  </div>
-                </Link>
-              ))}
-            </div>
           </div>
           
-          <div className="bg-brand-blue p-12 rounded-[2rem] text-white shadow-2xl shadow-brand-blue/30 h-full flex flex-col justify-center">
-            <h3 className="text-3xl mb-6">Investi nel domani.</h3>
+          <div className="bg-brand-blue p-10 rounded-[2.5rem] text-white shadow-2xl shadow-brand-blue/30 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+            <h3 className="text-2xl mb-6 font-bold">Investi nel domani.</h3>
             <p className="text-lg opacity-90 mb-8 leading-relaxed">
-              La tua quota mensile non serve solo a ripagare il tempo dello Shaykh. Ogni abbonamento è considerato una <span className="font-bold underline decoration-white/30 italic">sadaqa jāriya</span> — un contributo continuativo che sostiene la creazione di contenuti per le nuove generazioni.
+              La tua quota mensile è una <span className="font-bold underline decoration-white/30 italic">sadaqa jāriya</span>: sostiene la creazione di contenuti per le nuove generazioni.
             </p>
-            <div className="p-6 bg-white/10 rounded-2xl border border-white/20">
-              <p className="text-sm font-medium mb-4 italic opacity-80">"Quando l'essere umano muore, le sue opere si interrompono, tranne in tre casi: una sadaqa jāriya, una conoscenza di cui si trae beneficio o un figlio pio che prega per lui."</p>
-              <p className="text-right text-xs font-bold">— Sahih Muslim</p>
+            <div className="p-5 bg-white/10 rounded-2xl border border-white/20 backdrop-blur-sm">
+              <p className="text-xs font-medium mb-3 italic opacity-80 leading-relaxed">"Quando l'essere umano muore, le sue opere si interrompono, tranne in tre casi: una sadaqa jāriya, una conoscenza di cui si trae beneficio o un figlio pio che prega per lui."</p>
+              <p className="text-right text-[10px] font-bold tracking-widest uppercase">— Sahih Muslim</p>
             </div>
           </div>
+        </div>
+
+        {/* Large Department Cards Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {departments.map((dept, i) => (
+            <Link 
+              key={i} 
+              to={dept.path}
+              className={`group relative flex flex-col p-10 bg-white rounded-[3rem] border border-zinc-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden ${
+                i === 0 || i === 1 ? 'lg:col-span-1' : ''
+              }`}
+            >
+              <div className="flex justify-between items-start mb-8">
+                <div className="w-16 h-16 bg-brand-blue/5 text-brand-blue rounded-2xl flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all duration-500 shadow-sm">
+                  <dept.icon className="w-8 h-8" />
+                </div>
+                <span className={`text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full ${
+                  dept.status === "Attivo" ? "bg-emerald-100 text-emerald-700" : "bg-zinc-100 text-zinc-500"
+                }`}>
+                  {dept.status}
+                </span>
+              </div>
+              
+              <div className="flex-grow">
+                <h4 className="text-2xl font-bold text-zinc-900 group-hover:text-brand-blue transition-colors mb-4">{dept.name}</h4>
+                <p className="text-zinc-500 text-lg leading-relaxed mb-10">{dept.tagline}</p>
+              </div>
+
+              <div className="flex items-center gap-2 text-brand-blue font-bold text-sm">
+                Scopri di più
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+              </div>
+
+              {/* Subtle background decoration */}
+              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-brand-blue/5 rounded-full blur-2xl group-hover:bg-brand-blue/10 transition-colors" />
+            </Link>
+          ))}
         </div>
       </Section>
 

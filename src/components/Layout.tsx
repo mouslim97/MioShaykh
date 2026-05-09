@@ -5,7 +5,7 @@ import { logoUrl } from "../constants";
 const SKOOL_URL = "https://www.skool.com/mioshaykh";
 
 export const Section = ({ children, className = "", id = "" }: { children: ReactNode, className?: string, id?: string }) => (
-  <section id={id} className={`py-20 px-6 sm:px-12 lg:px-24 ${className}`}>
+  <section id={id} className={`py-20 px-6 sm:px-12 lg:px-24 scroll-mt-20 ${className}`}>
     <div className="max-w-7xl mx-auto">
       {children}
     </div>
