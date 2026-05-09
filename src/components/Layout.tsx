@@ -37,9 +37,9 @@ export const Navbar = () => {
             className="h-10 w-10 rounded-full shadow-sm object-cover transition-transform group-hover:scale-105" 
             referrerPolicy="no-referrer"
           />
-          <div className="hidden sm:block">
-            <span className="font-display font-bold text-lg leading-tight block">MioShaykh</span>
-            <p className="text-[0.55rem] text-zinc-500 uppercase tracking-widest leading-none mt-0.5">IL TUO SAPIENTE MUSULMANO DI FIDUCIA</p>
+          <div className="block">
+            <span className="font-display font-bold text-base sm:text-lg leading-tight block">MioShaykh</span>
+            <p className="text-[0.45rem] sm:text-[0.55rem] text-zinc-500 uppercase tracking-widest leading-none mt-0.5">IL TUO SAPIENTE MUSULMANO DI FIDUCIA</p>
           </div>
         </Link>
         
@@ -54,7 +54,7 @@ export const Navbar = () => {
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <a 
             href={SKOOL_URL}
             className="hidden sm:block bg-brand-blue hover:bg-brand-blue-dark text-white px-5 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105 active:scale-95 shadow-lg shadow-brand-blue/20"
@@ -81,14 +81,14 @@ export const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-white border-t border-zinc-100 overflow-hidden"
           >
-            <div className="flex flex-col py-6 gap-4">
+            <div className="flex flex-col py-6 gap-2">
               {navLinks.map((link) => (
                 link.isLink ? (
                   <Link 
                     key={link.name} 
                     to={link.href} 
                     onClick={() => setIsMenuOpen(false)}
-                    className="px-6 py-2 font-medium text-zinc-600 hover:text-brand-blue transition-colors"
+                    className="px-6 py-4 font-medium text-zinc-600 hover:text-brand-blue transition-colors border-b border-zinc-50 last:border-0 block w-full"
                   >
                     {link.name}
                   </Link>
@@ -96,21 +96,21 @@ export const Navbar = () => {
                   <a 
                     key={link.name} 
                     href={link.href} 
-                    onClick={() => setIsMenuOpen(false)}
-                    className="px-6 py-2 font-medium text-zinc-600 hover:text-brand-blue transition-colors"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMenuOpen(false);
+                      const targetId = link.href.replace('#', '');
+                      const element = document.getElementById(targetId);
+                      if (element) {
+                        element.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
+                    className="px-6 py-5 font-medium text-zinc-600 hover:text-brand-blue transition-colors border-b border-zinc-50 last:border-0 block w-full active:bg-zinc-50"
                   >
                     {link.name}
                   </a>
                 )
               ))}
-              <div className="px-6 pt-4">
-                <a 
-                  href={SKOOL_URL}
-                  className="block w-full bg-brand-blue text-center text-white px-5 py-3 rounded-full font-semibold transition-all shadow-lg shadow-brand-blue/20"
-                >
-                  Inizia gratis
-                </a>
-              </div>
             </div>
           </motion.div>
         )}
