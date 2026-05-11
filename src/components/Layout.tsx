@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useState, type MouseEvent } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { logoUrl } from "../constants";
 import { Menu, X } from "lucide-react";
@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "motion/react";
 const SKOOL_URL = "https://www.skool.com/mioshaykh";
 
 export const Section = ({ children, className = "", id = "" }: { children: ReactNode, className?: string, id?: string }) => (
-  <section id={id} className={`py-20 px-6 sm:px-12 lg:px-24 scroll-mt-20 ${className}`}>
+  <section id={id} className={`py-20 px-6 sm:px-12 lg:px-24 scroll-mt-24 ${className}`}>
     <div className="max-w-7xl mx-auto">
       {children}
     </div>
@@ -26,6 +26,30 @@ export const Navbar = () => {
   ] : [
     { name: "Home", href: "/", isLink: true },
   ];
+
+  const scrollToSection = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setIsMenuOpen(false);
+    
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      const headerHeight = 84; // Navbar height + buffer
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+      
+      const isMobile = window.innerWidth < 768;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: isMobile ? 'auto' : 'smooth'
+      });
+      
+      // Update URL hash without jumping
+      window.history.pushState(null, '', href);
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 sm:px-12 py-4">
@@ -49,7 +73,14 @@ export const Navbar = () => {
             link.isLink ? (
               <Link key={link.name} to={link.href} className="hover:text-brand-blue transition-colors">{link.name}</Link>
             ) : (
-              <a key={link.name} href={link.href} className="hover:text-brand-blue transition-colors">{link.name}</a>
+              <a 
+                key={link.name} 
+                href={link.href} 
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="hover:text-brand-blue transition-colors"
+              >
+                {link.name}
+              </a>
             )
           ))}
         </div>
@@ -79,16 +110,16 @@ export const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-t border-zinc-100 overflow-hidden"
+            className="absolute top-full left-0 right-0 md:hidden bg-white border-b border-zinc-100 shadow-xl overflow-hidden"
           >
-            <div className="flex flex-col py-6 gap-2">
+            <div className="flex flex-col py-2">
               {navLinks.map((link) => (
                 link.isLink ? (
                   <Link 
                     key={link.name} 
                     to={link.href} 
                     onClick={() => setIsMenuOpen(false)}
-                    className="px-6 py-4 font-medium text-zinc-600 hover:text-brand-blue transition-colors border-b border-zinc-50 last:border-0 block w-full"
+                    className="px-6 py-5 font-display font-medium text-zinc-600 hover:text-brand-blue transition-colors border-b border-zinc-50 last:border-0 block w-full"
                   >
                     {link.name}
                   </Link>
@@ -99,13 +130,10 @@ export const Navbar = () => {
                     onClick={(e) => {
                       e.preventDefault();
                       setIsMenuOpen(false);
-                      const targetId = link.href.replace('#', '');
-                      const element = document.getElementById(targetId);
-                      if (element) {
-                        element.scrollIntoView({ behavior: "smooth" });
-                      }
+                      // Small timeout for mobile to ensure menu state change doesn't interrupt the scroll trigger
+                      setTimeout(() => scrollToSection(e, link.href), 10);
                     }}
-                    className="px-6 py-5 font-medium text-zinc-600 hover:text-brand-blue transition-colors border-b border-zinc-50 last:border-0 block w-full active:bg-zinc-50"
+                    className="px-6 py-5 font-display font-medium text-zinc-600 hover:text-brand-blue transition-colors border-b border-zinc-50 last:border-0 block w-full active:bg-zinc-50 text-lg"
                   >
                     {link.name}
                   </a>
