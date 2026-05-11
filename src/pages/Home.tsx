@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { Link } from "react-router-dom";
 import { 
   CheckCircle2, 
@@ -15,7 +16,8 @@ import {
   CircleHelp,
   RefreshCw,
   Compass,
-  Puzzle
+  Puzzle,
+  ChevronDown
 } from "lucide-react";
 import { Layout, Section } from "../components/Layout";
 import { SKOOL_URL, gridUrl, profileUrl } from "../constants";
@@ -58,7 +60,75 @@ const departments = [
   },
 ];
 
+const faqs = [
+  {
+    question: "Come posso inviare le mie domande al sapiente?",
+    answer: "Iscrivendoti alla piattaforma, avrai subito la possibilità di chattare privatamente con lo Shaykh. Puoi anche fare le tue domande nelle sessioni live."
+  },
+  {
+    question: "Lo Shaykh parla italiano?",
+    answer: "Per adesso no. Ma grazie all'intelligenza artificiale sarà possibile chattare e capirsi lo stesso. La chat con lui sarà tutta in italiano. Nelle live invece ci sarà una traduzione simultanea."
+  },
+  {
+    question: "Quanto dura il percorso?",
+    answer: "È pensato per essere un percorso continuo, dato che il Profeta ﷺ ci raccomandò di rinnovare e lavorare sulla nostra fede continuamente e per tutta la vita."
+  },
+  {
+    question: "Posso cancellare l'abbonamento mensile?",
+    answer: "Sì, quando vuoi. Puoi sempre lasciare il tuo abbonamento come supporto per il progetto in modo che sia una elemosina per il bene dei musulmani italiani. Con poco puoi fare tanto."
+  },
+  {
+    question: "C'è una scadenza per iscriversi?",
+    answer: "No, ma è meglio iniziare subito per stare al passo con le brevi live giornaliere. L'obiettivo non è solo acquisire informazioni, bensì creare un'abitudine costante e sostenibile nel lungo termine."
+  },
+  {
+    question: "Cosa mi perdo se non mi iscrivo subito?",
+    answer: "L'occasione di far subito parte di una community di musulmani e musulmane dediti alla sapienza. Un posto dove il beneficio individuale e collettivo è immenso."
+  }
+];
+
+const FAQItem = ({ question, answer, isOpen, onClick }: { 
+  question: string; 
+  answer: string; 
+  isOpen: boolean; 
+  onClick: () => void;
+}) => {
+  return (
+    <div className="border-b border-zinc-100 last:border-0 overflow-hidden">
+      <button 
+        onClick={onClick}
+        className="w-full py-6 flex items-center justify-between text-left hover:text-brand-blue transition-colors group"
+      >
+        <span className="text-lg sm:text-xl font-medium pr-8">{question}</span>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+          className={`flex-shrink-0 w-8 h-8 rounded-full border border-zinc-200 flex items-center justify-center group-hover:border-brand-blue/30 group-hover:bg-brand-blue/5 transition-colors ${isOpen ? 'bg-brand-blue/5 border-brand-blue/30 text-brand-blue' : 'text-zinc-400'}`}
+        >
+          <ChevronDown className="w-5 h-5" />
+        </motion.div>
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+          >
+            <div className="pb-8 text-zinc-600 text-lg leading-relaxed max-w-3xl">
+              {answer}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
 export default function Home() {
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -301,6 +371,28 @@ export default function Home() {
               <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-brand-blue/5 rounded-full blur-2xl group-hover:bg-brand-blue/10 transition-colors" />
             </Link>
           ))}
+        </div>
+      </Section>
+
+      {/* FAQ Section */}
+      <Section id="faq" className="bg-[#FAFAFA]">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl mb-4">Domande frequenti</h2>
+            <p className="text-zinc-600 text-lg">Tutto quello che c'è da sapere sul percorso MioShaykh.</p>
+          </div>
+          
+          <div className="bg-white p-8 sm:p-12 rounded-[3rem] border border-zinc-100 shadow-sm">
+            {faqs.map((faq, i) => (
+              <FAQItem 
+                key={i}
+                question={faq.question}
+                answer={faq.answer}
+                isOpen={openFaqIndex === i}
+                onClick={() => setOpenFaqIndex(openFaqIndex === i ? null : i)}
+              />
+            ))}
+          </div>
         </div>
       </Section>
 

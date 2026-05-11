@@ -23,7 +23,9 @@ export const Navbar = () => {
     { name: "Il Progetto", href: "#progetto" },
     { name: "Lo Shaykh", href: "#shaykh" },
     { name: "La Visione", href: "#vision" },
+    { name: "FAQ", href: "#faq" },
   ] : [
+    { name: "FAQ", href: "/#faq" },
     { name: "Home", href: "/", isLink: true },
   ];
 
