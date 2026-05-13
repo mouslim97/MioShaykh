@@ -1,6 +1,7 @@
 export const gridUrl = "https://drive.google.com/thumbnail?id=1d_XyIbSI8E1Ryj2ALGslHXDdeYzjKh8f&sz=w1200";
 export const logoUrl = "https://drive.google.com/thumbnail?id=19yL3SEHVFVArrPpzqrhaeLmEXxkjvjIQ&sz=w500";
 export const profileUrl = "https://drive.google.com/thumbnail?id=1TpDSa61nZ8vwUR6nNWxb-oFhvKohNGWy&sz=w1000";
+export const founderUrl = "https://drive.google.com/thumbnail?id=1_oQgPZR6Jr7ygspsJOKWsJd79vaFsQZU&sz=w1000";
 
 export const bookImages = {
   laylat: "https://drive.google.com/thumbnail?id=1JCfyoiuf5jnFQC6-FfokDnnZ6rSeLd4e&sz=w800",

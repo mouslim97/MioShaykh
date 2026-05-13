@@ -19,37 +19,39 @@ export const Navbar = () => {
   const isHome = location.pathname === "/";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navLinks = isHome ? [
-    { name: "Il Progetto", href: "#progetto" },
-    { name: "Lo Shaykh", href: "#shaykh" },
-    { name: "La Visione", href: "#vision" },
-    { name: "FAQ", href: "#faq" },
-  ] : [
-    { name: "FAQ", href: "/#faq" },
-    { name: "Home", href: "/", isLink: true },
+  const navLinks = [
+    { name: "Il Progetto", href: isHome ? "#progetto" : "/#progetto" },
+    { name: "Lo Shaykh", href: isHome ? "#shaykh" : "/#shaykh" },
+    { name: "Fondatore", href: isHome ? "#fondatore" : "/#fondatore" },
+    { name: "Servizi", href: isHome ? "#servizi" : "/#servizi" },
+    { name: "La Visione", href: isHome ? "#vision" : "/#vision" },
+    { name: "FAQ", href: isHome ? "#faq" : "/#faq" },
   ];
 
   const scrollToSection = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setIsMenuOpen(false);
-    
-    const targetId = href.replace('#', '');
-    const element = document.getElementById(targetId);
-    
-    if (element) {
-      const headerHeight = 84; // Navbar height + buffer
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+    // Only smooth scroll if we are on the home page and the link is an anchor on that page
+    if (isHome && href.startsWith("#")) {
+      e.preventDefault();
+      setIsMenuOpen(false);
       
-      const isMobile = window.innerWidth < 768;
+      const targetId = href.replace('#', '');
+      const element = document.getElementById(targetId);
+      
+      if (element) {
+        const headerHeight = 84; // Navbar height + buffer
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+        
+        const isMobile = window.innerWidth < 768;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: isMobile ? 'auto' : 'smooth'
-      });
-      
-      // Update URL hash without jumping
-      window.history.pushState(null, '', href);
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: isMobile ? 'auto' : 'smooth'
+        });
+        
+        // Update URL hash without jumping
+        window.history.pushState(null, '', href);
+      }
     }
   };
 
@@ -72,18 +74,14 @@ export const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8 font-medium text-sm text-zinc-600">
           {navLinks.map((link) => (
-            link.isLink ? (
-              <Link key={link.name} to={link.href} className="hover:text-brand-blue transition-colors">{link.name}</Link>
-            ) : (
-              <a 
-                key={link.name} 
-                href={link.href} 
-                onClick={(e) => scrollToSection(e, link.href)}
-                className="hover:text-brand-blue transition-colors"
-              >
-                {link.name}
-              </a>
-            )
+            <a 
+              key={link.name} 
+              href={link.href} 
+              onClick={(e) => scrollToSection(e, link.href)}
+              className="hover:text-brand-blue transition-colors"
+            >
+              {link.name}
+            </a>
           ))}
         </div>
 
@@ -116,30 +114,24 @@ export const Navbar = () => {
           >
             <div className="flex flex-col py-2">
               {navLinks.map((link) => (
-                link.isLink ? (
-                  <Link 
-                    key={link.name} 
-                    to={link.href} 
-                    onClick={() => setIsMenuOpen(false)}
-                    className="px-6 py-5 font-display font-medium text-zinc-600 hover:text-brand-blue transition-colors border-b border-zinc-50 last:border-0 block w-full"
-                  >
-                    {link.name}
-                  </Link>
-                ) : (
-                  <a 
-                    key={link.name} 
-                    href={link.href} 
-                    onClick={(e) => {
+                <a 
+                  key={link.name} 
+                  href={link.href} 
+                  onClick={(e) => {
+                    // Only prevent default and smooth scroll if it's a local anchor
+                    if (isHome && link.href.startsWith("#")) {
                       e.preventDefault();
                       setIsMenuOpen(false);
                       // Small timeout for mobile to ensure menu state change doesn't interrupt the scroll trigger
                       setTimeout(() => scrollToSection(e, link.href), 10);
-                    }}
-                    className="px-6 py-5 font-display font-medium text-zinc-600 hover:text-brand-blue transition-colors border-b border-zinc-50 last:border-0 block w-full active:bg-zinc-50 text-lg"
-                  >
-                    {link.name}
-                  </a>
-                )
+                    } else {
+                      setIsMenuOpen(false);
+                    }
+                  }}
+                  className="px-6 py-5 font-display font-medium text-zinc-600 hover:text-brand-blue transition-colors border-b border-zinc-50 last:border-0 block w-full active:bg-zinc-50 text-lg"
+                >
+                  {link.name}
+                </a>
               ))}
             </div>
           </motion.div>

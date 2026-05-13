@@ -17,10 +17,24 @@ import {
   RefreshCw,
   Compass,
   Puzzle,
-  ChevronDown
+  ChevronDown,
+  Search,
+  GitCompare,
+  UserX,
+  Flag,
+  TrendingDown,
+  Clock,
+  Map,
+  MessageSquare,
+  Quote,
+  Lightbulb,
+  Languages,
+  UserCircle,
+  FileCheck,
+  TrendingUp
 } from "lucide-react";
 import { Layout, Section } from "../components/Layout";
-import { SKOOL_URL, gridUrl, profileUrl } from "../constants";
+import { SKOOL_URL, gridUrl, profileUrl, founderUrl } from "../constants";
 
 const departments = [
   { 
@@ -92,6 +106,7 @@ const FAQItem = ({ question, answer, isOpen, onClick }: {
   answer: string; 
   isOpen: boolean; 
   onClick: () => void;
+  key?: string | number;
 }) => {
   return (
     <div className="border-b border-zinc-100 last:border-0 overflow-hidden">
@@ -185,32 +200,46 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
+        <div className="grid md:grid-cols-2 gap-x-12 gap-y-10">
           {[
-            { text: "Non so a chi rivolgermi per avere una risposta islamica affidabile.", icon: CircleHelp },
-            { text: "Online trovo mille opinioni diverse e non so quale seguire.", icon: RefreshCw },
-            { text: "Ho domande sulla mia fede ma non trovo un percorso serio e strutturato.", icon: Compass },
-            { text: "La mia pratica è frammentata — manca una guida vera che mi accompagni.", icon: Puzzle }
+            { text: "Hai un dubbio ma non sai a chi chiedere — e ogni volta che cerchi online finisci per avere più confusione di prima.", icon: Search },
+            { text: "Trovi pareri contrastanti ovunque: c'è chi dice halal, chi dice haram, e non sai mai cosa valga per la tua situazione specifica.", icon: GitCompare },
+            { text: "Hai provato a chiedere in gruppi o a persone online — ma non erano sapienti, e le risposte non ti hanno mai convinto davvero.", icon: UserX },
+            { text: "Ti sei convertito all'Islam e non sai da dove iniziare, cosa studiare, a chi rivolgerti.", icon: Flag },
+            { text: "La tua fede sale e scende — e nei momenti bassi non hai nessuno che ti aiuti a rialzarti.", icon: TrendingDown },
+            { text: "Guardi chi si dedica all'Islam con ammirazione, ma ti senti in difetto perché gli impegni della vita non ti lasciano spazio.", icon: Clock },
+            { text: "Vorresti un percorso serio e strutturato — non video sparsi su YouTube o post sui social — ma non sai da dove iniziare.", icon: Map },
+            { text: "Hai domande profonde sull'Islam a cui non hai mai ricevuto risposte esaurienti, soddisfacenti e complete.", icon: MessageSquare }
           ].map((item, i) => (
             <motion.div 
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="relative p-8 sm:p-12 rounded-[2.5rem] flex items-start gap-6 group transition-all duration-500 bg-zinc-50 border-l-4 border-brand-blue/30 hover:border-brand-blue"
+              transition={{ delay: i * 0.05 }}
+              className="flex items-start gap-4"
             >
               <div className="flex-shrink-0 mt-1">
-                <item.icon className="w-8 h-8 text-brand-blue" />
+                <item.icon className="w-6 h-6 text-brand-blue" />
               </div>
-              <div className="relative">
-                <span className="text-4xl text-zinc-200 absolute -top-4 -left-6 font-serif opacity-50 select-none group-hover:text-brand-blue/20 transition-colors">“</span>
-                <p className="text-xl sm:text-2xl text-zinc-800 font-medium leading-relaxed italic relative z-10">
-                  {item.text}
-                </p>
-              </div>
+              <p className="text-zinc-700 text-lg leading-relaxed">
+                {item.text}
+              </p>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-24 text-center max-w-2xl mx-auto">
+          <Quote className="w-10 h-10 text-zinc-200 mx-auto mb-6" />
+          <p className="text-zinc-500 italic text-xl lg:text-2xl leading-relaxed">
+            "La fede nel cuore necessita di un lavoro continuo. Ma quando si è da soli, questo lavoro diventa ancora più difficile."
+          </p>
+          <div className="mt-6 flex flex-col items-center">
+            <div className="h-px w-12 bg-zinc-200 mb-6" />
+            <p className="text-zinc-400 text-sm uppercase tracking-[0.2em] font-medium">
+              Ispirato all'insegnamento del Profeta Muhammad ﷺ
+            </p>
+          </div>
         </div>
       </Section>
 
@@ -257,8 +286,72 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Founder Section */}
+      <Section id="fondatore" className="bg-white">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="order-2 lg:order-1">
+            <h2 className="text-4xl mb-8">Chi c'è dietro MioShaykh</h2>
+            <div className="space-y-6 text-zinc-600 text-lg leading-relaxed">
+              <p>
+                Mi chiamo Amir Fallaha. Ho fondato MioShaykh insieme allo Shaykh Hisham Al-Sun.
+              </p>
+              <p>
+                Negli anni ho cercato di contribuire alla comunità musulmana italiana in diversi modi: ho fondato Il Credente Production, un canale YouTube di traduzione di contenuti islamici con oltre 7.500 iscritti; ho guidato la traduzione della serie OMAR, l'unica serie islamica tradotta in italiano; ho divulgato su Instagram contenuti da cui centinaia di migliaia di persone hanno tratto beneficio; ho tradotto opere di sapienti classici e sono stato invitato come relatore in eventi e convegni in tutta Italia.
+              </p>
+              <p>
+                Tutto questo mi ha messo in contatto con moltissimi musulmani — e mi ha fatto capire quanto fosse grande il numero di chi fatica a trovare qualcuno di affidabile a cui chiedere, a sentirsi al sicuro nell'esternare i propri dubbi, a mantenere un percorso spirituale costante e non solo episodico.
+              </p>
+              <p>
+                La più grande sfida era sempre questa: non qualche ricarica spirituale di qualche giorno che poi svanisce non appena si torna al lavoro o all'università, ma qualcosa di continuo, radicato, vivo.
+              </p>
+              <p>
+                Due anni fa, all'interno di una rete di sapienti musulmani, mi fu fatto il nome di Shaykh Hisham Al-Sun. Decisi di iniziare alcune sessioni con lui — e quello fu l'inizio di una serie di incontri che hanno migliorato profondamente la mia comprensione dell'Islam e elevato il mio percorso spirituale.
+              </p>
+              <p>
+                Il suo modo di spiegare i precetti islamici, di presentare il ragionamento dietro ogni questione, la sua capacità di rispondere con elasticità, empatia e comprensione dei diversi contesti — mi ha fatto capire che era un dono di Allah per la nostra comunità.
+              </p>
+              <p>
+                MioShaykh nasce da questa convinzione: i musulmani in Italia meritano una guida qualificata, continua, accessibile. Non informazioni sparse su internet. Un percorso vero.
+              </p>
+              <div className="mt-10 p-8 bg-brand-blue/5 border-l-4 border-brand-blue rounded-r-2xl">
+                <p className="text-zinc-800 italic text-lg leading-relaxed mb-4">
+                  "Trovare lo Shaykh Hisham è stato come trovare un medico in grado di curare il tuo dolore in un giorno, dopo mesi passati a cercare un rimedio senza riuscirci — o tamponando il problema con un antidolorifico."
+                </p>
+                <p className="text-zinc-500 text-sm">
+                  — Amir Fallaha, fondatore di MioShaykh
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="order-1 lg:order-2 relative group">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="aspect-[4/5] rounded-[3rem] bg-zinc-50 overflow-hidden shadow-2xl border border-zinc-100 flex items-center justify-center relative"
+            >
+              <img 
+                src={founderUrl} 
+                alt="Amir Fallaha" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+              <div className="absolute bottom-8 left-8 right-8 p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 transform group-hover:-translate-y-2 transition-transform duration-500">
+                <p className="text-white font-display font-bold text-xl mb-1">Amir Fallaha</p>
+                <p className="text-white/80 text-sm font-medium">Fondatore di MioShaykh</p>
+              </div>
+            </motion.div>
+            {/* Decorative bloom */}
+            <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-brand-blue/5 rounded-full blur-[80px] -z-10 group-hover:bg-brand-blue/10 transition-colors duration-700" />
+            <div className="absolute -top-12 -left-12 w-48 h-48 bg-zinc-200/20 rounded-full blur-[60px] -z-10" />
+          </div>
+        </div>
+      </Section>
+
       {/* Features Section */}
-      <Section className="bg-white">
+      <Section id="servizi" className="bg-white">
         <div className="text-center mb-16">
           <h2 className="text-4xl mb-4">Cosa offre MioShaykh</h2>
           <p className="text-zinc-600 max-w-2xl mx-auto">Tutto ciò di cui hai bisogno per la tua crescita spirituale in un unico posto.</p>
@@ -267,34 +360,34 @@ export default function Home() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
-              icon: BookOpen,
-              title: "Oltre 20 percorsi strutturati",
-              desc: "Scienze islamiche complete: Aqidah, Fiqh, Corano, Sirah, Spiritualità e molto altro."
+              icon: Lightbulb,
+              title: "Chiarezza",
+              desc: "Smetti di cercare ogni volta da dove iniziare. MioShaykh ti offre un percorso strutturato e progressivo, senza dispersione."
             },
             {
-              icon: MessageCircle,
-              title: "Domande alla Community",
-              desc: "Poni le tue domande pubblicamente; lo Shaykh risponde personalmente a tutti i dubbi."
+              icon: Languages,
+              title: "In italiano",
+              desc: "Non dovrai più affidarti a contenuti in arabo o in altre lingue. Tutto è pensato per chi vive e studia in italiano."
             },
             {
               icon: ShieldCheck,
-              title: "Consulenze Private",
-              desc: "Domande private allo Shaykh con risposta entro 4 giorni, riservata e ponderata."
+              title: "Affidabilità",
+              desc: "Niente risposte prese da Google o da siti ignoti. Ogni risposta viene da uno Shaykh qualificato, con una formazione verificata e riconosciuta."
             },
             {
-              icon: BookMarked,
-              title: "Guide & Ebook Esclusivi",
-              desc: "Materiale didattico approfondito creato appositamente per i membri della community."
+              icon: UserCircle,
+              title: "Personalizzazione",
+              desc: "Le tue domande ricevono risposte calibrate sulla tua situazione specifica. Come avere un medico personale per la tua salute spirituale."
             },
             {
-              icon: Users,
-              title: "Ambiente Moderato",
-              desc: "Uno spazio privo di polemiche, futilità e improvvisazione. Solo crescita reale."
+              icon: FileCheck,
+              title: "Fonti verificate",
+              desc: "Avrai la certezza di ricevere risposte radicate nelle fonti islamiche autentiche, trasmesse con onestà intellettuale e senza fanatismi."
             },
             {
-              icon: Heart,
-              title: "Supporto Continuo",
-              desc: "Non sei un numero. Sei parte di una famiglia che cresce insieme nella luce."
+              icon: TrendingUp,
+              title: "Crescita continua",
+              desc: "La fede sale e scende per tutti — ma ciò che cambia nel lungo termine è la tendenza. MioShaykh ti accompagna ogni giorno, non solo nei momenti di crisi."
             }
           ].map((feature, i) => (
             <motion.div 
