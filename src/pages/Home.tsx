@@ -323,7 +323,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="order-1 lg:order-2 relative group">
+          <div className="order-1 lg:order-2 relative group overflow-hidden lg:overflow-visible">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}

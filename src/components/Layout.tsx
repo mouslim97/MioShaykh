@@ -167,7 +167,7 @@ export const Footer = () => (
 );
 
 export const Layout = ({ children }: { children: ReactNode }) => (
-  <div className="min-h-screen pt-20">
+  <div className="min-h-screen pt-20 overflow-x-hidden">
     <Navbar />
     <main>{children}</main>
     <Footer />
